@@ -1,0 +1,53 @@
+services:
+  blackjack_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: mpunsola/blackjack_api:latest
+    ports:
+      - '8080:8080'
+    depends_on:
+      mongodb:
+        condition: service_healthy
+      mysql:
+        condition: service_healthy
+    networks:
+      - app-network
+
+  mongodb:
+    image: 'mongo:6.0'
+    container_name: mongodb
+    environment:
+      MONGO_INITDB_DATABASE: blackjack_games
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - app-network
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok' | mongosh
+      timeout: 5s
+      retries: 10
+
+  mysql:
+    image: 'mysql:8.0'
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: blackjack_players
+      MYSQL_ROOT_PASSWORD: 1234
+    volumes:
+      - mysql_data:/var/lib/mysql
+    networks:
+      - app-network
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-p1234" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  mongo_data:
+  mysql_data:

@@ -1,0 +1,53 @@
+# Ignore build directories
+target/*
+build/
+!target/S05T01-0.0.1-SNAPSHOT.jar
+
+# Ignore IDE-specific directories and files
+.idea/
+.vscode/
+
+# Ignore build-related files
+*.iml
+*.class
+*.project
+*.classpath
+
+# Ignore local configuration files
+*.env
+*.properties
+
+# Ignore version control directories
+.git/
+.gitignore
+
+# Ignore OS-specific files and directories
+.DS_Store
+Thumbs.db
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.bak
+
+# Ignore Docker-related temporary files
+docker-compose.override.yaml
+
+# Ignore test reports or coverage folders
+test-logs/
+*.xml
+
+# Ignore Maven-specific files and directories
+.mvn/
+pom.xml.versionsBackup
+pom.xml.releaseBackup
+release.properties
+
+# Ignore local environment files
+.env
+.env.local
+.env.*.local
+
+# Ignore IntelliJ-specific Maven wrapper files
+mvnw*
+
